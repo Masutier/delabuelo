@@ -1,0 +1,35 @@
+<nav class="navbar" style="background-color: #fff;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <h2>EMPANADAS DEL ABUELO</h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Empanadas del Abuelo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a></li>
+                    
+                    {% if request.user.is_staff %}
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'products' %}">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'sales' %}">Ventas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'close_basket' %}">Cierre de Caja</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'userLogout' %}">OUT</a></li>
+
+                    {% elif request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'close_basket' %}">Cierre de Caja</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'userLogout' %}">OUT</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'loginPage' %}">IN</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,44 @@
+{% extends 'abuemp/layout2.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+<div class="col-md-11 p-4 txtcol29 mx-auto">
+    <h1 class="c">{{user.username}} Este es Tu Perfil</h1>
+</div>
+
+<div class="col-11 mx-auto row font-1">
+
+    <div class="col-3 mx-auto mt-3 ">
+        <div class="col-10 mx-auto mb-3">
+            <a href="{% url 'createProductByUser' %}" class="btn btn-info btn-block ">Crear Usuario</a>
+        </div>
+
+        <h1> Seccion Usuario</h1>
+        <div class="col-10 mx-auto ">
+            <label>Nombre</label>
+            {{user.first_name}}
+        </div>
+        <div class="col-10 mx-auto">
+            <label>Apellido</label>
+            {{user.last_name}}
+        </div>
+        <div class="col-10 mx-auto ">
+            <label>Documento de Identidad</label>
+            {{user.profile.cc}}
+        </div>
+        <div class="col-10 mx-auto">
+            <label>Numero de Teléfono</label>
+            {{user.profile.phone}}
+        </div>
+        <div class="col-10 mx-auto mb-4">
+            <label>Correo</label>
+            {{user.email}}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,12 @@
+Empanadas del Abuelo
+
+Como despertar la aplicacion
+
+- Terminal
+- cd prog/AbueloEmp
+- source venv/bin/activate
+- python manage.py runserver
+
+- (En el Navegador "Brave") localhost:8000
+
+

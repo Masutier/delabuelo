@@ -1,0 +1,127 @@
+{% extends 'abuemp/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+
+<div class="col-7 mx-auto">
+    <h2>Ventas del Dia</h2>
+    <h3>Total Ventas = {{ totalDay }}</h3>
+</div>
+
+<div class="col-11 mx-auto mb-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fecha Venta</th>
+                <th scope="col">Responsable</th>
+                <th scope="col">Forma Pago</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cant</th>
+                <th scope="col">Total Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ldsale in lastDaySales %}
+        <tr>
+            <td>{{ ldsale.date_created }}</td>
+            <td>{{ ldsale.vendedor }}</td>
+            <td>{{ ldsale.pay }}</td>
+            <td>{{ ldsale.product }}</td>
+            <td>{{ ldsale.sale_quantity }}</td>
+            <td>{{ ldsale.sale_price|intcomma }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="col-7 mx-auto">
+    <h2>Ventas del ultimo 7 dias</h2>
+    <h3>Total Ventas = {{ totalWeek }}</h3>
+</div>
+<div class="col-11 mx-auto mb-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fecha Venta</th>
+                <th scope="col">Responsable</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cant</th>
+                <th scope="col">Total Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lwsale in lastWeekSales %}
+        <tr>
+            <td>{{ lwsale.date_created }}</td>
+            <td>{{ lwsale.vendedor }}</td>
+            <td>{{ lwsale.product }}</td>
+            <td>{{ lwsale.sale_quantity }}</td>
+            <td>{{ lwsale.sale_price|intcomma }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="col-7 mx-auto">
+    <h2>Ventas del ultimo Mes</h2>
+    <h3>Total Ventas = {{ totalMonth }}</h3>
+</div>
+<div class="col-11 mx-auto mb-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fecha Venta</th>
+                <th scope="col">Responsable</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cant</th>
+                <th scope="col">Total Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lmsale in lastMonthSales %}
+        <tr>
+            <td>{{ lmsale.date_created }}</td>
+            <td>{{ lmsale.vendedor }}</td>
+            <td>{{ lmsale.product }}</td>
+            <td>{{ lmsale.sale_quantity }}</td>
+            <td>{{ lmsale.sale_price|intcomma }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="col-7 mx-auto">
+    <h2>Todas las Ventas</h2>
+</div>
+<div class="col-11 mx-auto mb-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fecha Venta</th>
+                <th scope="col">Responsable</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cant</th>
+                <th scope="col">Total Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sale in salesAll %}
+        <tr>
+            <td>{{ sale.date_created }}</td>
+            <td>{{ sale.vendedor }}</td>
+            <td>{{ sale.product }}</td>
+            <td>{{ sale.sale_quantity }}</td>
+            <td>{{ sale.sale_price|intcomma }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

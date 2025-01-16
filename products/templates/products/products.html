@@ -1,0 +1,76 @@
+{% extends 'abuemp/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} {{ title }} {% endblock %}
+{% block pagename %} {{ pagename }} {% endblock %} 
+{% block content %}
+
+
+<div class="col-11 mx-auto">
+
+    <div class="col-7 mx-auto">
+        <div class="col-12 mx-auto mb-5 px-5 pt-4 pb-4 bordeColor">
+            <form action="/loadCsvProducts" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input class="form-control" type="file" name="loadProducts" accept=".xlsx,.xls" required multiple>
+                </div>
+                <div class="col-11 mx-auto">
+                    <div class="row">
+                        <div class="col-5 mx-auto">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-secondary c" type="submit" name="submit">Subir Archivo .xls o xlsx</button>
+                            </div>
+                        </div>
+                        <div class="col-5 mx-auto">
+                            <div class="d-grid gap-2">
+                                <a class="btn btn-outline-primary c" role="button" href="{% url 'createProduct' %}" aria-disabled="true">Subir Un Solo Producto Nuevo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-11 mx-auto mb-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Category</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">UN</th>
+                <th scope="col">Cant</th>
+                <th scope="col">Costo Un</th>
+                <th scope="col">Precio Venta</th>
+                <th scope="col" colspan="2">Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.code }}</td>
+                <td>{{ product.categoria }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.mesure }}</td>
+                {% if product.quantity_un <= 5 %}
+                    <td><a class="btn btn-outline-danger btn-sm" href="#" aria-disabled="true">{{ product.quantity_un|intcomma }}</a></td>
+                {% else %}
+                    <td>{{ product.quantity_un|intcomma }}</td>
+                {% endif %}
+                <td>{{ product.cost_un|intcomma }}</td>
+                <td>{{ product.sale_price|intcomma }}</td>
+                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'editProduct' product.id %}" aria-disabled="true">Mod</a></td>
+                <td><a class="btn btn-outline-danger btn-sm" href="{% url 'deleteProduct' product.id %}" aria-disabled="true">Del</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

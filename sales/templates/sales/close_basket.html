@@ -1,0 +1,72 @@
+{% extends 'abuemp/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+
+<div class="col-7 mx-auto borde c">
+    <h2>{{ pagename }}</h2>
+    <h2>Ventas de Atendents del ultimo dia</h2>
+    <h3>Total Ventas = {{ totalDay }}</h3>
+</div>
+
+{% for vende in vendedores %}
+
+<div class="col-11 mx-auto mt-5">
+
+    {%for element in perEmploye%}
+        {% for key,value in element.items %}
+            {% if key == vende %}
+            <div class="col-12 mx-auto">
+                <div class="row">
+                    <div class="col-4 mx-auto">
+                        <h3 class="txtcol1">Ventas de {{ key }} = {{ value.sales|intcomma }}</h3>
+                    </div>
+                    <div class="col-4 mx-auto">
+                        <h3 class="txtcol1">Ventas Efectivo = {{ value.cashPay|intcomma }}</h3>
+                    </div>
+                    <div class="col-4 mx-auto">
+                        <h3 class="txtcol1">Ventas Digital = {{ value.nequiPay|intcomma }}</h3>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}  
+
+</div>
+
+<div class="col-11 mx-auto mb-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fecha Venta</th>
+                <th scope="col">Responsable</th>
+                <th scope="col">Forma de Pago</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cant</th>
+                <th scope="col">Total Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ldsale in lastDaySales %}
+            {% if ldsale.vendedor.first_name == vende %}
+            <tr>
+                <td>{{ ldsale.date_created }}</td>
+                <td>{{ ldsale.vendedor }}</td>
+                <td>{{ ldsale.pay }}</td>
+                <td>{{ ldsale.product }}</td>
+                <td>{{ ldsale.sale_quantity }}</td>
+                <td>{{ ldsale.sale_price|intcomma }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endfor %}
+
+{% endblock %}
